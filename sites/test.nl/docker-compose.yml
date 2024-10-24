@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  php:
+    image: php:8.0-fpm
+    container_name: php_test
+    volumes:
+      - ./src:/var/www/html  # Your PHP codebase for test.nl
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true  # Use the shared network from the main docker-compose.yml
+

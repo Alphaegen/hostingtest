@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  php:
+    image: php:8.0-fpm
+    container_name: php_best
+    volumes:
+      - ./src:/var/www/html  # Your PHP codebase for best.nl
+    networks:
+      - shared-network
+
+  ssh:
+    image: rastasheep/ubuntu-sshd:18.04
+    container_name: ssh_best
+    restart: always
+    environment:
+      - ROOT_PASSWORD=best_ssh_password
+    networks:
+      - shared-network
+    expose:
+      - "22"  # Expose port 22 internally
+
+networks:
+  shared-network:
+    external: true
