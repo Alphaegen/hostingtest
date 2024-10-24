@@ -33,8 +33,21 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certs:/etc/nginx/certs
+      - ./nginx-root:/var/www/certbot          # Certbot webroot for domain validation
     networks:
       - app-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certs:/etc/letsencrypt               # Store Let's Encrypt certificates
+      - ./nginx-root:/var/www/certbot          # Certbot webroot for domain validation
+      - ./certbot-domains.txt:/etc/letsencrypt/domains.txt  # List of domains
+      - ./scripts:/scripts                     # Custom scripts
+    entrypoint: "/scripts/certbot-renew.sh"
+    networks:
+      - shared-network
 
 volumes:
   mariadb_data:
