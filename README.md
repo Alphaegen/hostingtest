@@ -14,6 +14,6 @@
 7. Run `docker compose up -d` in the site directory
 
 # SSH to site
-1. ssh root@<domain>
+1. ssh root@domain
 
 SSH credentials can also be changed in the project specific docker-compose.yml
